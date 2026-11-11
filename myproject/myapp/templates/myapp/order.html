@@ -1,0 +1,278 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>My Order | Novel Nest</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+
+    <style>
+        body {
+            min-height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #667eea, #764ba2, #f093fb);
+            font-family: Arial, sans-serif;
+        }
+
+        .navbar {
+            background: white;
+            padding: 15px 30px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.1);
+        }
+
+        .navbar-brand {
+            color: #764ba2 !important;
+            font-size: 25px;
+            font-weight: bold;
+        }
+
+        .order-container {
+            max-width: 950px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+
+        .order-card {
+            background: white;
+            border-radius: 18px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        h2 {
+            color: #764ba2;
+            font-weight: bold;
+        }
+
+        .book-row {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding: 20px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .book-cover {
+            width: 90px;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .book-details {
+            flex: 1;
+        }
+
+        .book-details h5 {
+            color: #764ba2;
+            font-weight: bold;
+        }
+
+        .price {
+            color: #e75480;
+            font-weight: bold;
+        }
+
+        .total-section {
+            background: #f8f0ff;
+            padding: 20px;
+            border-radius: 12px;
+            margin-top: 25px;
+        }
+
+        .place-order-btn {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 13px 35px;
+            border-radius: 30px;
+            font-weight: bold;
+        }
+
+        .place-order-btn:hover {
+            color: white;
+            opacity: 0.9;
+        }
+
+        .continue-btn {
+            color: #764ba2;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        @media(max-width: 576px) {
+            .book-row {
+                gap: 12px;
+            }
+
+            .book-cover {
+                width: 65px;
+                height: 90px;
+            }
+
+            .order-card {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- Navbar -->
+<nav class="navbar">
+    <a class="navbar-brand" href="/">
+        📚 Novel Nest
+    </a>
+</nav>
+
+<div class="order-container">
+
+    <div class="order-card">
+
+        <h2 class="text-center mb-2">🛒 My Order</h2>
+
+        <p class="text-center text-muted mb-4">
+            Review your selected books before placing your order.
+        </p>
+
+        <!-- Cart Items -->
+        <div id="orderItems"></div>
+
+        <!-- Total -->
+        <div class="total-section">
+
+            <div class="d-flex justify-content-between mb-2">
+                <span>Subtotal</span>
+                <strong>₹<span id="subtotal">0</span></strong>
+            </div>
+
+            <div class="d-flex justify-content-between mb-2">
+                <span>Delivery Charges</span>
+                <strong>FREE</strong>
+            </div>
+
+            <hr>
+
+            <div class="d-flex justify-content-between">
+                <h5>Total Amount</h5>
+                <h5 class="price">₹<span id="total">0</span></h5>
+            </div>
+
+        </div>
+
+        <!-- Buttons -->
+        <div class="d-flex justify-content-between align-items-center mt-4 flex-wrap gap-3">
+
+            <a href="/" class="continue-btn">
+                ← Continue Shopping
+            </a>
+
+            <button class="place-order-btn" onclick="placeOrder()">
+                Place Order →
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+    // Get cart details from localStorage
+    let cart = JSON.parse(localStorage.getItem("bookCart")) || [];
+
+    function displayOrder() {
+
+        let orderItems = document.getElementById("orderItems");
+
+        let subtotal = 0;
+
+        orderItems.innerHTML = "";
+
+        if (cart.length === 0) {
+
+            orderItems.innerHTML = `
+                <div class="text-center p-4">
+                    <h5>Your cart is empty! 📚</h5>
+                    <a href="/" class="btn btn-primary mt-3">
+                        Explore Books
+                    </a>
+                </div>
+            `;
+
+            document.getElementById("subtotal").textContent = "0";
+            document.getElementById("total").textContent = "0";
+
+            return;
+        }
+
+        cart.forEach(function(item) {
+
+            let itemTotal = Number(item.price) * Number(item.quantity);
+
+            subtotal += itemTotal;
+
+            orderItems.innerHTML += `
+                <div class="book-row">
+
+                    <div class="book-details">
+                        <h5>${escapeHTML(item.title)}</h5>
+
+                        <p class="text-muted mb-1">
+                            Quantity: ${item.quantity}
+                        </p>
+
+                        <p class="price mb-0">
+                            ₹${item.price} × ${item.quantity}
+                        </p>
+                    </div>
+
+                    <div class="price">
+                        ₹${itemTotal}
+                    </div>
+
+                </div>
+            `;
+        });
+
+        document.getElementById("subtotal").textContent = subtotal;
+        document.getElementById("total").textContent = subtotal;
+    }
+
+    function escapeHTML(value) {
+        return String(value).replace(/[&<>"']/g, function(char) {
+            return {
+                "&": "&amp;",
+                "<": "&lt;",
+                ">": "&gt;",
+                '"': "&quot;",
+                "'": "&#39;"
+            }[char];
+        });
+    }
+
+    function placeOrder() {
+
+        if (cart.length === 0) {
+            alert("Your cart is empty!");
+            return;
+        }
+
+        // Clear cart after placing the demo order
+        localStorage.removeItem("bookCart");
+
+        window.location.href = "/order-success/";
+    }
+
+    displayOrder();
+
+</script>
+
+</body>
+</html>

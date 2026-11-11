@@ -1,0 +1,255 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Login - Books Collection</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea, #764ba2, #f093fb);
+            padding: 20px;
+        }
+
+        /* Login Card */
+
+        .login-card {
+            width: 100%;
+            max-width: 430px;
+            background: rgba(255, 255, 255, 0.97);
+            padding: 40px 35px;
+            border-radius: 22px;
+            box-shadow: 0 15px 40px rgba(40, 20, 80, 0.25);
+            border-top: 7px solid #ff6b9d;
+        }
+
+        /* Heading */
+
+        .login-icon {
+            font-size: 55px;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .heading {
+            color: #6c3db5;
+            font-size: 29px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #888;
+            text-align: center;
+            font-size: 14px;
+            margin-bottom: 30px;
+        }
+
+        /* Input Fields */
+
+        .input-field {
+            margin-bottom: 22px;
+        }
+
+        .input-field label {
+            display: block;
+            color: #49336f;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .input-field input {
+            width: 100%;
+            padding: 13px 15px;
+            border: 2px solid #e5dafa;
+            border-radius: 10px;
+            outline: none;
+            font-size: 15px;
+            transition: 0.3s;
+        }
+
+        .input-field input:focus {
+            border-color: #a66bea;
+            box-shadow: 0 0 8px rgba(166, 107, 234, 0.25);
+        }
+
+        /* Login Button */
+
+        .login-btn {
+            width: 100%;
+            padding: 13px;
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-size: 17px;
+            font-weight: bold;
+            background: linear-gradient(90deg, #7b2ff7, #f107a3);
+            box-shadow: 0 6px 18px rgba(70, 20, 100, 0.2);
+            transition: 0.3s;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-3px);
+            color: white;
+        }
+
+        /* Signup Link */
+
+        .signup-text {
+            text-align: center;
+            margin-top: 25px;
+            color: #777;
+            font-size: 14px;
+        }
+
+        .signup-text a {
+            color: #764ba2;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .signup-text a:hover {
+            color: #f107a3;
+            text-decoration: underline;
+        }
+
+        /* Home Link */
+
+        .home-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #764ba2;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .home-link:hover {
+            color: #f107a3;
+        }
+
+        /* Mobile Responsive */
+
+        @media (max-width: 576px) {
+
+            .login-card {
+                padding: 30px 22px;
+            }
+
+            .heading {
+                font-size: 25px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <div class="login-card">
+
+        <!-- Icon -->
+        <div class="login-icon">
+            📚
+        </div>
+
+        <!-- Heading -->
+        <div class="heading">
+            Welcome Back!
+        </div>
+
+        <p class="subtitle">
+            Login to your Books Collection account
+        </p>
+
+        <!-- Login Form -->
+        <form action="" method="POST">
+
+            {% csrf_token %}
+
+            <!-- Username -->
+            <div class="input-field">
+
+                <label for="username">
+                    Username
+                </label>
+
+                <input
+                    type="text"
+                    name="u"
+                    id="username"
+                    placeholder="Enter your username"
+                    autocomplete="username"
+                    required
+                >
+
+            </div>
+
+
+            <!-- Password -->
+            <div class="input-field">
+
+                <label for="password">
+                    Password
+                </label>
+
+                <input
+                    type="password"
+                    name="p"
+                    id="password"
+                    placeholder="Enter your password"
+                    autocomplete="current-password"
+                    required
+                >
+
+            </div>
+
+
+            <!-- Login Button -->
+            <button type="submit" class="login-btn">
+                Login
+            </button>
+
+        </form>
+
+
+        <!-- Signup -->
+        <div class="signup-text">
+
+            New here?
+
+            <a href="{% url 'signup' %}">
+                Create Account
+            </a>
+
+        </div>
+
+
+        <!-- Home -->
+        <a href="/" class="home-link">
+            ← Back to Books Collection
+        </a>
+
+    </div>
+
+</body>
+</html>

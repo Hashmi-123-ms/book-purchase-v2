@@ -1,0 +1,34 @@
+{% extends 'base.html'%}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            background-color: aqua;
+        }
+    </style>
+</head>
+<body>
+    <h2>welcome home</h2>
+    <p>my name is {{name}}</p>
+    <p>iam {{age}} years old</p>
+    <p>iam from {{place}}</p>
+
+    {%for i in hobbies%}
+    <ul>
+    <li>{{i}}</li>
+    </ul>
+    {% endfor %}
+    {% if age >= 18%}
+    <p>you are an adult</p>
+    {% else %}
+    <p>you are a minor</p>
+    {% endif %}
+    {% endblock %}
+
+</body>
+</html>
