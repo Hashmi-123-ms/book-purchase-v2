@@ -29,6 +29,7 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 DEBUG = os.getenv('DEBUG', 'False') == 'True'
 
 ALLOWED_HOSTS = [
+    'book-purchase-v2.onrender.com',
     "localhost",
     "127.0.0.1",
 ]
