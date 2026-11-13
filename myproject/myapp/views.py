@@ -96,7 +96,5 @@ def order(request):
 
 
 def home(request):
-    return HttpResponse("Book Purchase Website is Working!")
-
-
-
+    a = book.objects.all()
+    return render(request, 'myapp/home2.html', {'a': a})
