@@ -18,7 +18,7 @@ from .models import book
 from. forms import book_form
 from django.contrib.auth.models import User
 from django.contrib.auth import login,authenticate
-import traceback
+
 # Create your views here.
 
 def home(request):
@@ -101,13 +101,3 @@ def home(request):
 
 
 
-def home(request):
-    try:
-        total_books = book.objects.count()
-        return HttpResponse(
-            f"Database working! Total books: {total_books}"
-        )
-
-    except Exception:
-        print(traceback.format_exc(), flush=True)
-        return HttpResponse("Database test failed", status=500)
