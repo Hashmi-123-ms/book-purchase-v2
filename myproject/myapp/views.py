@@ -95,4 +95,8 @@ def order(request):
     return render(request, "myapp/order.html")
 
 
+def home(request):
+    return HttpResponse("Book Purchase Website is Working!")
+
+
 
