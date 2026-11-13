@@ -94,7 +94,6 @@ def order_success(request):
 def order(request):
     return render(request, "myapp/order.html")
 
-
 def home(request):
-    a = book.objects.all()
-    return render(request, 'myapp/home2.html', {'a': a})
+    total_books = book.objects.count()
+    return HttpResponse(f"Database working! Total books: {total_books}")
